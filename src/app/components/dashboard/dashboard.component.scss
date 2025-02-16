@@ -1,0 +1,126 @@
+.dashboard_section{
+
+
+    .table-filter-container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+    
+  .table-container { 
+    border-radius: 10px;
+    max-height: calc(100vh - 285px);
+    border: 1px solid #eaeaea;
+  
+    &::-webkit-scrollbar {
+      width: 0px;
+      transition: width 0.4s;
+      background-color: #eaeaea;
+      height: 5px;
+      display: none;
+      transition: 0.4s;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: #b4b4b4;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background-color: #eaeaea;
+    }
+  
+    &:hover {
+      &::-webkit-scrollbar {
+        width: 5px;
+        transition: width 0.4s;
+        display: block !important;
+        transition: 0.4s;
+      }
+    }
+  
+    .simple_data_table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+  
+      thead {
+        tr {
+          position: sticky !important;
+          top: 0 !important;
+          left: 0 !important;
+          z-index: 1;
+          th {
+            //   border-top: 1px solid #eaeaea;
+            border-bottom: 1px solid #eaeaea;
+            background-color: #f8f8f8;
+            color: #5f5f5f;
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 16px;
+            padding: 15px; 
+            max-width: 200px;
+            width: 200px;
+  
+            &:first-child {
+              // border-left: 1px solid #eaeaea;
+              padding-left: 20px;
+              border-radius: 10px 0 0 0;
+            }
+  
+            &:last-child {
+              // border-right: 1px solid #eaeaea;
+              border-radius: 0 10px 0 0;
+              padding-left: 20px;
+            }
+          }
+        }
+      }
+  
+      tbody {
+        tr {
+          border-bottom: 1px solid #eaeaea;
+  
+          &:hover {
+            box-shadow: 0 2px 3px #0000001a;
+            background-color: #eaeaea;
+          }
+  
+          td {
+            color: #212121;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 19px;
+            padding: 12px; 
+            border-bottom: 1px solid #eaeaea; 
+            max-width: 200px;
+            width: 200px;
+  
+            svg {
+              fill: #b4b4b4;
+              cursor: pointer;
+            }
+
+            .action-menu-btn{
+                border: none;
+                outline: none;
+                background-color: transparent;
+            }
+  
+            &:first-child {
+              padding-left: 20px;
+              // border-left: 1px solid #eaeaea;
+            }
+  
+            &:last-child {
+              // border-right: 1px solid #eaeaea;
+              padding-left: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+}

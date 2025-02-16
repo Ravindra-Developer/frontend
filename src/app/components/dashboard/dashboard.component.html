@@ -1,14 +1,125 @@
-<div class="dashboard">
-    <h2>Task List</h2>
-    <input type="text" placeholder="New task" [(ngModel)]="newTaskTitle">
-    <button (click)="addTask()">Add</button>
-  
-    <ul>
-      <li *ngFor="let task of tasks">
-        {{ task.title }} - <strong>{{ task.status }}</strong>
-        <button *ngIf="task.status === 'pending'" (click)="completeTask(task)">Complete</button>
-        <button (click)="deleteTask(task)">Delete</button>
-      </li>
-    </ul>
+<section class="dashboard_section py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="table-filter-container">
+          <div class="col-lg-2 col-md-3 col-sm-4 col-4">
+            <select class="form-select" aria-label="Default select example">
+              <option value="">All</option>
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+
+          <div class="col-lg-1 col-md-2 col-sm-3 col-3">
+            <button class="btn btn-primary-outline w-100" data-bs-toggle="modal" data-bs-target="#addtaskmodal"><i
+                class="fas fa-plus me-1"></i>Add</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="table-container">
+          <table class="simple_data_table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of tasks">
+                <td>{{item.title | titlecase}}</td>
+                <td>{{item.description || "-"}}</td>
+                <td>{{item.status | titlecase}}</td>
+                <td class="dropdown">
+                  <button class="action-menu-btn btndropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" width="30" height="20" data-name="Layer 1"
+                      viewBox="0 0 24 24">
+                      <path
+                        d="M3.498,9.357c-1.583,.011-2.498,.989-2.498,2.651,0,1.649,.916,2.624,2.505,2.634,1.583-.01,2.471-.946,2.499-2.651-.027-1.663-.938-2.624-2.506-2.634Z" />
+                      <path
+                        d="M11.996,9.357c-1.583,.011-2.498,.989-2.498,2.651,0,1.649,.916,2.624,2.505,2.634,1.583-.01,2.471-.946,2.499-2.651-.027-1.663-.938-2.624-2.506-2.634Z" />
+                      <path
+                        d="M20.494,9.357c-1.583,.011-2.498,.989-2.498,2.651,0,1.649,.916,2.624,2.505,2.634,1.583-.01,2.471-.946,2.499-2.651-.027-1.663-.938-2.624-2.506-2.634Z" />
+                    </svg>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><button class="dropdown-item" type="button" data-bs-toggle="modal"
+                        data-bs-target="#addtaskmodal" (click)="patchData(item)">Update</button></li>
+                    <li><button class="dropdown-item" type="button" data-bs-toggle="modal"
+                        data-bs-target="#deletetaskmodal" (click)="_id = item._id">Delete</button></li>
+                    <li><button class="dropdown-item" type="button" *ngIf="item.status === 'pending'"
+                        (click)="completeTask(item)">Complete Task</button></li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-  
+</section>
+
+<!-- delete modal  -->
+<div class="modal fade" id="deletetaskmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="deletetaskmodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deletetaskmodalLabel">Delete Task Warning</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="_id = ''"></button>
+      </div>
+      <div class="modal-body">
+        <h6>Are you sure want to delete this task?</h6>
+      </div>
+      <div class="modal-footer border-none">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="_id = ''">Cancel</button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletetaskmodal"
+          (click)="deleteTask()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- add delete modal  -->
+<div class="modal fade" id="addtaskmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="addtaskmodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addtaskmodalLabel">{{_id ? 'Update' : 'Add'}} Task</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="_id = ''"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+          </div>
+          <div class="col-12">
+            <div class="mb-2">
+              <label class="mb-1">Title</label>
+              <input type="text" class="form-control" placeholder="Enter Title" [(ngModel)]="taskTitle">
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="mb-2">
+              <label class="mb-1">Description</label>
+              <textarea name="" class="form-control" placeholder="Enter Description" [(ngModel)]="taskDesc"
+                id=""></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-none">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="_id = ''">Cancel</button>
+        <button type="button" class="btn btn-primary-outline" data-bs-toggle="modal" data-bs-target="#addtaskmodal"
+          (click)="_id ? updateTask() : addTask()">{{_id ? 'Update' : 'Add'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

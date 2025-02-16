@@ -1,6 +1,20 @@
 <div class="login-container">
-  <h2>Login</h2>
-  <input type="text" placeholder="Username" [(ngModel)]="username">
-  <input type="password" placeholder="Password" [(ngModel)]="password">
-  <button (click)="login()">Login</button>
+  <div class="form-container">
+    <p class="title">{{ isLogin ? 'Login' : 'Register' }}</p>
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="mb-3">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" formControlName="username">
+      </div>
+      <div class="mb-3">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" formControlName="password">
+      </div>
+      <button class="btn btn-primary sign" type="submit" [disabled]="loginForm.invalid">{{ isLogin ? 'Sign in' : 'Register'}}</button>
+    </form>
+
+    <p class="signup">{{isLogin ? "Don't have an account?" : 'Already have an account?' }}
+      <a rel="noopener noreferrer" href="#" (click)="switch()" class="">{{isLogin ? 'Click to register' : 'Click to login' }}</a>
+    </p>
+  </div>
 </div>
