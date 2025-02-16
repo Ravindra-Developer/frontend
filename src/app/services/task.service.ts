@@ -8,14 +8,18 @@ export class TaskService {
 
   private baseUrl = 'http://localhost:3000/tasks';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private headers() {
     return { headers: new HttpHeaders({ Authorization: `JWT ${sessionStorage.getItem('token')}` }) };
   }
 
-  getTasks() {
-    return this.http.get(`${this.baseUrl}/getMyTask`, this.headers());
+  getTasks(status: string = "") {
+    let URL = `${this.baseUrl}/getMyTask`
+    if (status) {
+      URL = URL + "?status=" + status
+    }
+    return this.http.get(URL, this.headers());
   }
 
   createTask(task: any) {

@@ -52,7 +52,7 @@ export class LoginComponent {
         error: (error: any) => {
           Swal.fire({
             title: "Login failed",
-            text: error.message,
+            text: error.error.message,
             icon: "error",
             timer: 2000,
             willClose: () => {
@@ -68,7 +68,7 @@ export class LoginComponent {
           sessionStorage.setItem('token', res.token);
           localStorage.clear()
           Swal.fire({
-            title: "Registered Successfull",
+            title: "Registered Successfully",
             icon: "success",
             timer: 2000,
             willClose: () => {
@@ -79,7 +79,7 @@ export class LoginComponent {
         error: (error: any) => {
           Swal.fire({
             title: "Registeration failed",
-            text: error.message,
+            text: error.error.message,
             icon: "error",
             timer: 2000,
             willClose: () => {

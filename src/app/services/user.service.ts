@@ -18,11 +18,6 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/register`, user);
   }
 
-  logout() {
-    sessionStorage.removeItem('token');
-    this.router.navigate(['/login']);
-  }
-
   isAuthenticated(): boolean {
     return !!sessionStorage.getItem('token');
   }

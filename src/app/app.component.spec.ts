@@ -1,11 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { Router } from '@angular/router';
 
 describe('AppComponent', () => {
+  let router: Router;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent]
     }).compileComponents();
+
+    router = TestBed.inject(Router);
   });
 
   it('should create the app', () => {
@@ -14,16 +18,18 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'frontend' title`, () => {
+  it('should return false when the URL is "/authentication"', () => {
+    spyOnProperty(router, 'url', 'get').and.returnValue('/authentication');
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend');
+    expect(app.shouldShowNavbar()).toBeFalse();
   });
 
-  it('should render title', () => {
+  it('should return true for other routes', () => {
+    spyOnProperty(router, 'url', 'get').and.returnValue('/dashboard');
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, frontend');
+    const app = fixture.componentInstance;
+    expect(app.shouldShowNavbar()).toBeTrue();
   });
+
 });

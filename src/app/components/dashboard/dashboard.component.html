@@ -4,7 +4,7 @@
       <div class="col-12">
         <div class="table-filter-container">
           <div class="col-lg-2 col-md-3 col-sm-4 col-4">
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="status" (ngModelChange)="filter()" >
               <option value="">All</option>
               <option value="pending">Pending</option>
               <option value="completed">Completed</option>
@@ -12,14 +12,14 @@
           </div>
 
           <div class="col-lg-1 col-md-2 col-sm-3 col-3">
-            <button class="btn btn-primary-outline w-100" data-bs-toggle="modal" data-bs-target="#addtaskmodal"><i
+            <button class="btn btn-primary-outline w-100" id="addModalTRiggerBtn" data-bs-toggle="modal" data-bs-target="#addtaskmodal"><i
                 class="fas fa-plus me-1"></i>Add</button>
           </div>
         </div>
       </div>
       <div class="col-12">
-        <div class="table-container">
-          <table class="simple_data_table">
+        <div class="table-container" *ngIf="tasks.length">
+          <table class="simple_data_table" >
             <thead>
               <tr>
                 <th>Title</th>
@@ -71,8 +71,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="deletetaskmodalLabel">Delete Task Warning</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-          (click)="_id = ''"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="_id = ''"></button>
       </div>
       <div class="modal-body">
         <h6>Are you sure want to delete this task?</h6>
@@ -86,14 +85,14 @@
   </div>
 </div>
 
-<!-- add delete modal  -->
+<!-- add update modal  -->
 <div class="modal fade" id="addtaskmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="addtaskmodalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="addtaskmodalLabel">{{_id ? 'Update' : 'Add'}} Task</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" *ngIf="tasks.length"
           (click)="_id = ''"></button>
       </div>
       <div class="modal-body">
@@ -116,7 +115,8 @@
         </div>
       </div>
       <div class="modal-footer border-none">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="_id = ''">Cancel</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="_id = ''"
+          *ngIf="tasks.length">Cancel</button>
         <button type="button" class="btn btn-primary-outline" data-bs-toggle="modal" data-bs-target="#addtaskmodal"
           (click)="_id ? updateTask() : addTask()">{{_id ? 'Update' : 'Add'}}</button>
       </div>
