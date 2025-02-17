@@ -117,7 +117,7 @@
       <div class="modal-footer border-none">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="_id = ''"
           *ngIf="tasks.length">Cancel</button>
-        <button type="button" class="btn btn-primary-outline" data-bs-toggle="modal" data-bs-target="#addtaskmodal"
+        <button type="button" class="btn btn-primary-outline" data-bs-toggle="modal" data-bs-target="#addtaskmodal" [disabled]="!taskTitle"
           (click)="_id ? updateTask() : addTask()">{{_id ? 'Update' : 'Add'}}</button>
       </div>
     </div>
